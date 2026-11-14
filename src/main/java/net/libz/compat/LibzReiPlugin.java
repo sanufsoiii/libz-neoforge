@@ -3,12 +3,12 @@ package net.libz.compat;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.screen.ExclusionZones;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import me.shedaniel.rei.forge.REIPluginClient;
 import java.util.Collections;
 
+// Fabric entrypoint "rei_client" -> REI NeoForge discovers client plugins by this annotation.
+@REIPluginClient
 @SuppressWarnings("unused")
-@Environment(EnvType.CLIENT)
 public class LibzReiPlugin implements REIClientPlugin {
 
     @Override

@@ -2,6 +2,7 @@ package net.libz.compat;
 
 import java.util.List;
 
+import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.widget.Bounds;
@@ -12,6 +13,8 @@ import net.libz.util.DrawTabHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 
+// Fabric entrypoint "emi" -> EMI NeoForge discovers plugins by this annotation.
+@EmiEntrypoint
 public class LibzEmiPlugin implements EmiPlugin {
 
     @Override

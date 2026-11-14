@@ -2,28 +2,31 @@ package net.libz.init;
 
 import java.util.List;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
-import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.libz.LibzClient;
 import net.libz.api.BlockScreenTab;
 import net.libz.api.InventoryTab;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.InteractionResult;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.client.event.ScreenEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
-@Environment(EnvType.CLIENT)
 public class ClientEventInit {
 
-    public static void init() {
-        UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
-            if (world.isClientSide()) {
-                LibzClient.lastInteractedBlockPos = hitResult.getBlockPos().immutable();
+    public static void init(IEventBus gameBus) {
+        // Fabric UseBlockCallback (client side: MultiPlayerGameMode.useItemOn before the packet is sent).
+        // Only remembers the position and never cancels, like the original returning PASS.
+        gameBus.addListener(PlayerInteractEvent.RightClickBlock.class, event -> {
+            if (event.getLevel().isClientSide()) {
+                LibzClient.lastInteractedBlockPos = event.getPos().immutable();
             }
-            return InteractionResult.PASS;
         });
 
-        ScreenEvents.AFTER_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
+        // Fabric ScreenEvents.AFTER_INIT (tail of Screen.init and Screen.resize) -> ScreenEvent.Init.Post.
+        gameBus.addListener(ScreenEvent.Init.Post.class, event -> {
+            Minecraft client = Minecraft.getInstance();
+            Screen screen = event.getScreen();
             BlockPos blockPos = LibzClient.lastInteractedBlockPos;
             List<InventoryTab> list = LibzClient.otherTabs.get(screen.getClass());
             if (list != null && blockPos != null && client.level != null) {

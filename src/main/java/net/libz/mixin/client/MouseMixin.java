@@ -3,14 +3,11 @@ package net.libz.mixin.client;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
-import net.fabricmc.api.Environment;
 import net.libz.access.MouseAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
 import com.mojang.blaze3d.platform.InputConstants;
-import net.fabricmc.api.EnvType;
 
-@Environment(EnvType.CLIENT)
 @Mixin(MouseHandler.class)
 public class MouseMixin implements MouseAccessor {
 

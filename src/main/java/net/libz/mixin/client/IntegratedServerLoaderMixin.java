@@ -4,11 +4,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screens.worldselection.WorldOpenFlows;
 
-@Environment(EnvType.CLIENT)
 @Mixin(value = WorldOpenFlows.class, priority = 999)
 public class IntegratedServerLoaderMixin {
 

@@ -7,8 +7,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.libz.LibzClient;
 import net.libz.api.*;
 import net.minecraft.resources.ResourceLocation;
@@ -19,7 +17,6 @@ import net.minecraft.world.item.ItemStack;
  *
  * @version 1.0
  */
-@Environment(EnvType.CLIENT)
 public class TabRegistry {
 
     private static final Logger LOGGER = LoggerFactory.getLogger("LibZ");

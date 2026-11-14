@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.libz.LibzClient;
 import net.libz.api.InventoryTab;
 import net.libz.api.Tab;
@@ -15,7 +13,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
-@Environment(EnvType.CLIENT)
 public class DrawTabHelper {
 
     /**

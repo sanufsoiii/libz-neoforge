@@ -2,8 +2,6 @@ package net.libz.api;
 
 import org.jetbrains.annotations.Nullable;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
@@ -19,7 +17,6 @@ import net.minecraft.world.item.ItemStack;
  *
  * @version 1.0
  */
-@Environment(EnvType.CLIENT)
 public class InventoryTab {
 
     private final Class<?>[] screenClasses;

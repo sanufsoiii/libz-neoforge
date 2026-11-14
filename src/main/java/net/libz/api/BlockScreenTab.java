@@ -2,8 +2,6 @@ package net.libz.api;
 
 import org.jetbrains.annotations.Nullable;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.libz.LibzClient;
 import net.libz.network.LibzClientPacket;
 import net.minecraft.client.Minecraft;
@@ -13,7 +11,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
-@Environment(EnvType.CLIENT)
 public class BlockScreenTab extends InventoryTab {
 
     private final Class<?> parentClass;

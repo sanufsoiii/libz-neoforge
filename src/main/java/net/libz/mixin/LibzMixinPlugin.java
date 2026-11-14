@@ -7,8 +7,6 @@ import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
-import net.fabricmc.loader.api.FabricLoader;
-
 @SuppressWarnings("unused")
 public class LibzMixinPlugin implements IMixinConfigPlugin {
 

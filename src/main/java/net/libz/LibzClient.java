@@ -63,6 +63,11 @@ public class LibzClient {
         titleReached = true;
         LOGGER.info("[libz-port] TITLE_SCREEN_REACHED");
         if (Boolean.getBoolean("libz.port.exitOnTitle")) {
+            // Load every mixin target first: audit() only sees classes that are already loaded.
+            int targetFailures = net.libz.port.MixinTargetLoader.load(LOGGER, net.libz.port.MixinTargetLoader.COMMON)
+                    + net.libz.port.MixinTargetLoader.load(LOGGER, net.libz.port.MixinTargetLoader.CLIENT);
+            LOGGER.info("[libz-port] CLIENT_MIXIN_TARGETS targets={} failures={}",
+                    net.libz.port.MixinTargetLoader.COMMON.size() + net.libz.port.MixinTargetLoader.CLIENT.size(), targetFailures);
             // Force every client mixin of the pack to apply now, so a broken target fails here instead of in game.
             MixinEnvironment.getCurrentEnvironment().audit();
             LOGGER.info("[libz-port] CLIENT_MIXIN_AUDIT_OK");

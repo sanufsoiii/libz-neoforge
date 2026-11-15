@@ -35,6 +35,7 @@ public final class ServerSmoke {
     private static int ticksLeft = -1;
     private static int spawned = 0;
     private static int entityTypes = 0;
+    private static int mixinTargetFailures = 0;
 
     private ServerSmoke() {
     }
@@ -52,6 +53,10 @@ public final class ServerSmoke {
         ServerLevel level = server.overworld();
         BlockPos spawn = level.getSharedSpawnPos();
         LOGGER.info("[libz-port] SERVER_SMOKE_START dedicated={} spawn={}", server.isDedicatedServer(), spawn.toShortString());
+
+        // Load every mixin target first: audit() only sees classes that are already loaded.
+        mixinTargetFailures = MixinTargetLoader.load(LOGGER, MixinTargetLoader.COMMON);
+        LOGGER.info("[libz-port] SERVER_SMOKE mixin targets={} failures={}", MixinTargetLoader.COMMON.size(), mixinTargetFailures);
 
         // Apply every pending mixin now, so a broken target fails here and not when some class is first used in game.
         MixinEnvironment.getCurrentEnvironment().audit();
@@ -84,6 +89,8 @@ public final class ServerSmoke {
         }
         if (spawned != entityTypes) {
             LOGGER.error("[libz-port] SERVER_SMOKE_FAILED entity types={} spawned={}", entityTypes, spawned);
+        } else if (mixinTargetFailures != 0) {
+            LOGGER.error("[libz-port] SERVER_SMOKE_FAILED mixin_target_failures={}", mixinTargetFailures);
         } else {
             LOGGER.info("[libz-port] SERVER_SMOKE_OK entities={} ticks={}", spawned, TICKS);
         }

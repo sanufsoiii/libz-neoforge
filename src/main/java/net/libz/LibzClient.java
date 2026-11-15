@@ -20,6 +20,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spongepowered.asm.mixin.MixinEnvironment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,6 +63,9 @@ public class LibzClient {
         titleReached = true;
         LOGGER.info("[libz-port] TITLE_SCREEN_REACHED");
         if (Boolean.getBoolean("libz.port.exitOnTitle")) {
+            // Force every client mixin of the pack to apply now, so a broken target fails here instead of in game.
+            MixinEnvironment.getCurrentEnvironment().audit();
+            LOGGER.info("[libz-port] CLIENT_MIXIN_AUDIT_OK");
             Thread exitThread = new Thread(() -> {
                 try {
                     Thread.sleep(5000L);
